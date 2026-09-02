@@ -21,7 +21,6 @@ const { registerMessageHandler } = require('./events/messages');
 const { fetchCore } = require('./utils/fetchCore');
 const { acquireLock, releaseLock } = require('./utils/instanceLock');
 const fs = require('fs');
-const { registerGroupEventGuard } = require('./utils/groupEventGuard');
 
 // Prevent two instances running at the same time — dual instances
 // cause Bad MAC errors that corrupt the WhatsApp Signal session.
@@ -344,7 +343,6 @@ async function startBot() {
 
     registerConnectionHandler(sock, startBot, wasAlreadyRegistered);
     registerMessageHandler(sock, commands);
-    registerGroupEventGuard(sock);
 
     if (!global.__cacheClearScheduled) {
       global.__cacheClearScheduled = true;
